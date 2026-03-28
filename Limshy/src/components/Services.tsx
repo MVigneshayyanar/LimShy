@@ -7,9 +7,10 @@ import {
   Server,
   Brain,
   Wrench,
-  ArrowRight,
+  ChevronDown,
 } from 'lucide-react';
 import { useInView } from '../hooks/useInView';
+import { scrollToSection } from '../hooks/useScroll';
 
 interface ServicesProps {
   darkMode: boolean;
@@ -121,9 +122,8 @@ export default function Services({ darkMode }: ServicesProps) {
     <section
       id="services"
       ref={ref}
-      className={`relative py-24 lg:py-32 overflow-hidden ${
-        darkMode ? 'bg-navy-light' : 'bg-white'
-      }`}
+      className={`relative py-24 lg:py-32 overflow-hidden ${darkMode ? 'bg-navy-light' : 'bg-white'
+        }`}
     >
       {/* Background accents */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-blue-light/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
@@ -132,9 +132,8 @@ export default function Services({ darkMode }: ServicesProps) {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className={`text-center max-w-3xl mx-auto mb-16 lg:mb-20 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-4 ${
-            darkMode ? 'bg-blue-light/10 text-blue-sky border border-blue-light/20' : 'bg-blue-50 text-blue border border-blue-100'
-          }`}>
+          <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-4 ${darkMode ? 'bg-blue-light/10 text-blue-sky border border-blue-light/20' : 'bg-blue-50 text-blue border border-blue-100'
+            }`}>
             Our Services
           </span>
           <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 ${darkMode ? 'text-white' : 'text-navy'}`}>
@@ -142,7 +141,7 @@ export default function Services({ darkMode }: ServicesProps) {
             <span className="gradient-text">Build & Scale</span>
           </h2>
           <p className={`text-lg ${darkMode ? 'text-slate' : 'text-gray-600'}`}>
-            From concept to deployment and beyond — we deliver end-to-end software solutions tailored to your business needs.
+            From concept to deployment and beyond, we deliver end-to-end software solutions tailored to your business needs.
           </p>
         </div>
 
@@ -153,11 +152,10 @@ export default function Services({ darkMode }: ServicesProps) {
             return (
               <div
                 key={service.title}
-                className={`group relative rounded-2xl p-6 transition-all duration-500 hover:-translate-y-2 cursor-pointer ${
-                  darkMode
-                    ? 'bg-navy/60 border border-white/5 hover:border-blue-light/20 hover:bg-navy/80'
-                    : 'bg-white border border-gray-100 hover:border-blue-100 shadow-sm hover:shadow-xl hover:shadow-blue-500/5'
-                } ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+                className={`group relative rounded-2xl p-6 transition-all duration-500 hover:-translate-y-2 cursor-pointer ${darkMode
+                  ? 'bg-navy/60 border border-white/5 hover:border-blue-light/20 hover:bg-navy/80'
+                  : 'bg-white border border-gray-100 hover:border-blue-100 shadow-sm hover:shadow-xl hover:shadow-blue-500/5'
+                  } ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
                 style={{ transitionDelay: `${index * 80}ms` }}
                 id={`service-card-${index}`}
               >
@@ -174,26 +172,18 @@ export default function Services({ darkMode }: ServicesProps) {
                   {service.tech}
                 </p>
 
-                <ul className="space-y-2 mb-6">
+                <ul className="space-y-2">
                   {service.features.map((feature) => (
                     <li
                       key={feature}
-                      className={`flex items-start gap-2 text-sm ${
-                        darkMode ? 'text-slate' : 'text-gray-600'
-                      }`}
+                      className={`flex items-start gap-2 text-sm ${darkMode ? 'text-slate' : 'text-gray-600'
+                        }`}
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-blue-light mt-1.5 flex-shrink-0" />
                       {feature}
                     </li>
                   ))}
                 </ul>
-
-                <button className={`inline-flex items-center gap-1.5 text-sm font-semibold transition-all group-hover:gap-2.5 ${
-                  darkMode ? 'text-blue-sky hover:text-white' : 'text-blue hover:text-blue-light'
-                }`}>
-                  Learn More
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
 
                 {/* Hover gradient border */}
                 <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500`} />
@@ -202,6 +192,16 @@ export default function Services({ darkMode }: ServicesProps) {
           })}
         </div>
       </div>
+ 
+      {/* Scroll indicator */}
+      <button
+        onClick={() => scrollToSection('about')}
+        className={`flex flex-col items-center gap-2 mx-auto mt-12 transition-opacity cursor-pointer relative z-10 ${darkMode ? 'text-slate/40 hover:text-slate/80' : 'text-gray-400 hover:text-gray-600'
+          }`}
+      >
+        <span className="text-xs font-medium tracking-wider uppercase pointer-events-none">Scroll</span>
+        <ChevronDown className="w-5 h-5 animate-bounce pointer-events-none" />
+      </button>
     </section>
   );
 }

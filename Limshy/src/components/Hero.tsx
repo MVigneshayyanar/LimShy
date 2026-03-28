@@ -9,9 +9,8 @@ export default function Hero({ darkMode }: HeroProps) {
   return (
     <section
       id="home"
-      className={`relative min-h-screen flex items-center overflow-hidden ${
-        darkMode ? 'bg-navy' : 'bg-gradient-to-br from-slate-50 to-blue-50'
-      }`}
+      className={`relative min-h-screen flex items-center overflow-hidden ${darkMode ? 'bg-navy' : 'bg-gradient-to-br from-slate-50 to-blue-50'
+        }`}
     >
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -51,7 +50,6 @@ export default function Hero({ darkMode }: HeroProps) {
           {/* Heading */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 animate-slide-up">
             <span className={darkMode ? 'text-white' : 'text-navy'}>Limshy </span>
-            <span className="text-glow">–</span>
             <br />
             <span className="gradient-text">Innovative Tech</span>
             <br />
@@ -60,9 +58,8 @@ export default function Hero({ darkMode }: HeroProps) {
 
           {/* Subtitle */}
           <p
-            className={`text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed animate-slide-up ${
-              darkMode ? 'text-slate' : 'text-gray-600'
-            }`}
+            className={`text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed animate-slide-up ${darkMode ? 'text-slate' : 'text-gray-600'
+              }`}
             style={{ animationDelay: '0.2s' }}
           >
             Expert{' '}
@@ -88,11 +85,10 @@ export default function Hero({ darkMode }: HeroProps) {
             <button
               onClick={() => scrollToSection('contact')}
               id="cta-quote"
-              className={`group inline-flex items-center gap-2 px-8 py-4 rounded-2xl text-base font-semibold border-2 transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto justify-center ${
-                darkMode
+              className={`group inline-flex items-center gap-2 px-8 py-4 rounded-2xl text-base font-semibold border-2 transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto justify-center ${darkMode
                   ? 'text-blue-sky border-blue-sky/30 hover:bg-blue-sky/10 hover:border-blue-sky/50'
                   : 'text-blue border-blue/20 hover:bg-blue/5 hover:border-blue/40'
-              }`}
+                }`}
             >
               Get a Free Quote
             </button>
@@ -100,9 +96,8 @@ export default function Hero({ darkMode }: HeroProps) {
 
           {/* Trust badges */}
           <div
-            className={`mt-16 flex flex-wrap items-center justify-center gap-8 animate-slide-up ${
-              darkMode ? 'text-slate/50' : 'text-gray-400'
-            }`}
+            className={`mt-16 flex flex-wrap items-center justify-center gap-8 animate-slide-up ${darkMode ? 'text-slate/50' : 'text-gray-400'
+              }`}
             style={{ animationDelay: '0.6s' }}
           >
             <span className="text-xs font-medium uppercase tracking-wider">Technologies</span>
@@ -124,12 +119,11 @@ export default function Hero({ darkMode }: HeroProps) {
       {/* Scroll indicator */}
       <button
         onClick={() => scrollToSection('services')}
-        className={`absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-opacity ${
-          darkMode ? 'text-slate/40 hover:text-slate/80' : 'text-gray-400 hover:text-gray-600'
-        }`}
+        className={`absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-opacity cursor-pointer z-20 ${darkMode ? 'text-slate/40 hover:text-slate/80' : 'text-gray-400 hover:text-gray-600'
+          }`}
       >
-        <span className="text-xs font-medium tracking-wider uppercase">Scroll</span>
-        <ChevronDown className="w-5 h-5 animate-bounce" />
+        <span className="text-xs font-medium tracking-wider uppercase pointer-events-none">Scroll</span>
+        <ChevronDown className="w-5 h-5 animate-bounce pointer-events-none" />
       </button>
     </section>
   );

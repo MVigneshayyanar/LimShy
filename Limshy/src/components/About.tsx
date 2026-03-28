@@ -1,4 +1,6 @@
+import { ChevronDown } from 'lucide-react';
 import { useInView } from '../hooks/useInView';
+import { scrollToSection } from '../hooks/useScroll';
 
 interface AboutProps {
   darkMode: boolean;
@@ -28,30 +30,30 @@ export default function About({ darkMode }: AboutProps) {
             <span className="gradient-text">One Line at a Time</span>
           </h2>
           <p className={`text-lg leading-relaxed ${darkMode ? 'text-slate' : 'text-gray-600'}`}>
-            Limshy delivers cutting-edge tech solutions that drive growth and innovation.
+            Limshy delivers advanced tech solutions that drive growth and innovation.
             We combine technical excellence with creative vision to turn ambitious ideas into reality.
           </p>
         </div>
 
         {/* Company Story */}
         <div className={`rounded-3xl p-8 lg:p-12 transition-all duration-700 delay-200 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${darkMode
-            ? 'bg-gradient-to-br from-navy to-navy-lighter border border-white/5'
-            : 'bg-gradient-to-br from-blue-50 to-white border border-blue-100/50'
+          ? 'bg-gradient-to-br from-navy to-navy-lighter border border-white/5'
+          : 'bg-gradient-to-br from-blue-50 to-white border border-blue-100/50'
           }`}>
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div>
               <h3 className={`text-2xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-navy'}`}>Our Story</h3>
               <div className={`space-y-4 text-base leading-relaxed ${darkMode ? 'text-slate' : 'text-gray-600'}`}>
                 <p>
-                  Limshy is a full-service software development company
+                  Limshy is a full service software development company
                   building solutions for businesses of all sizes.
                 </p>
                 <p>
-                  We specialize in high-performance web applications, cross-platform mobile apps,
-                  AI-powered features, and cloud-native solutions using every major technology stack.
+                  We specialize in high performance web applications, cross-platform mobile apps,
+                  AI-powered features, and cloud native solutions using every major technology stack.
                 </p>
                 <p>
-                  At Limshy, we don't just write code — we architect solutions that scale, adapt, and deliver
+                  At Limshy, we don't just write code we architect solutions that scale, adapt, and deliver
                   measurable business impact.
                 </p>
               </div>
@@ -77,6 +79,16 @@ export default function About({ darkMode }: AboutProps) {
           </div>
         </div>
       </div>
+ 
+      {/* Scroll indicator */}
+      <button
+        onClick={() => scrollToSection('contact')}
+        className={`flex flex-col items-center gap-2 mx-auto mt-12 transition-opacity cursor-pointer relative z-10 ${darkMode ? 'text-slate/40 hover:text-slate/80' : 'text-gray-400 hover:text-gray-600'
+          }`}
+      >
+        <span className="text-xs font-medium tracking-wider uppercase pointer-events-none">Scroll</span>
+        <ChevronDown className="w-5 h-5 animate-bounce pointer-events-none" />
+      </button>
     </section>
   );
 }
