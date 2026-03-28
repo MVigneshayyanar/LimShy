@@ -1,21 +1,7 @@
-import { useState } from 'react';
-import { Send } from 'lucide-react';
 import { scrollToSection } from '../hooks/useScroll';
 import logo from '../assets/logo.png';
 
-
-
 export default function Footer() {
-  const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubscribed(true);
-    setEmail('');
-    setTimeout(() => setSubscribed(false), 3000);
-  };
-
   return (
     <footer id="footer" className="relative bg-navy text-white">
       {/* Back to Top */}
