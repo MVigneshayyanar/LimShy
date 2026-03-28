@@ -15,6 +15,7 @@ import {
   ArrowUp,
 } from 'lucide-react';
 import { scrollToSection } from '../hooks/useScroll';
+import logo from '../assets/logo.png';
 
 const navLinks = [
   { label: 'Home', section: 'home' },
@@ -68,15 +69,10 @@ export default function Navbar({ darkMode, toggleDarkMode }: NavbarProps) {
             {/* Logo */}
             <button
               onClick={() => handleNav('home')}
-              className="flex items-center gap-2 group"
+              className="flex items-center group"
               id="logo"
             >
-              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-light to-blue-sky flex items-center justify-center shadow-lg shadow-blue-light/30 group-hover:shadow-blue-light/50 transition-shadow">
-                <Code2 className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold tracking-tight">
-                <span className="gradient-text">Limshy</span>
-              </span>
+              <img src={logo} alt="Limshy Logo" className="h-10 sm:h-12 w-auto object-contain hover:scale-105 transition-transform duration-300" />
             </button>
 
             {/* Desktop Nav */}

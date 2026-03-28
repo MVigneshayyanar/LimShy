@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Send, Mail, Link2, Globe, MessageCircle } from 'lucide-react';
+import { Send, Mail } from 'lucide-react';
 import { useInView } from '../hooks/useInView';
 import { db } from '../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
@@ -30,16 +30,40 @@ export default function Contact({ darkMode }: ContactProps) {
         createdAt: serverTimestamp(),
       });
 
-      window.location.href = `mailto:limshytech@gmail.com?subject=${encodeURIComponent(`New Project Inquiry from ${formData.name}`)}&body=${encodeURIComponent(
-        `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nService: ${formData.service}\n\nMessage:\n${formData.message}`
-      )}`;
+      // Web3Forms: Free automated email service (no mail client popup)
+      // Get your free Access Key here: https://web3forms.com/#export-your-form
+      const web3Response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          service: formData.service,
+          message: formData.message,
+          subject: `New Inquiry: ${formData.service} from ${formData.name}`,
+          from_name: "Limshy Website",
+        }),
+      });
+
+      if (!web3Response.ok) throw new Error('Web3Forms submission failed');
 
       setSubmitted(true);
       setFormData({ name: '', email: '', phone: '', service: '', message: '' });
       setTimeout(() => setSubmitted(false), 5000);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error submitting form:', error);
-      alert('Something went default. Please try again or email us directly.');
+      if (error.code === 'permission-denied') {
+        alert('Firebase permission denied. Check your Firestore rules.');
+      } else if (error.message.includes('Database')) {
+        alert('Firebase Firestore Database not found! Please create it in the Firebase Console.');
+      } else {
+        alert('Something went wrong. Please check your connection or email us directly.');
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -140,23 +164,6 @@ export default function Contact({ darkMode }: ContactProps) {
                 <div className={`font-semibold ${darkMode ? 'text-white' : 'text-navy'}`}>limshytech@gmail.com</div>
               </div>
             </a>
-
-            <div className={`p-5 rounded-2xl ${darkMode ? 'bg-navy-light/60 border border-white/5' : 'bg-white border border-gray-100 shadow-sm'}`}>
-              <div className={`text-sm font-medium mb-3 ${darkMode ? 'text-slate' : 'text-gray-500'}`}>Follow Us</div>
-              <div className="flex gap-3">
-                {[{ icon: Link2, label: 'LinkedIn' }, { icon: Globe, label: 'GitHub' }, { icon: MessageCircle, label: 'Twitter' }].map((s) => {
-                  const Icon = s.icon;
-                  return (
-                    <a key={s.label} href="javascript:void(0)" aria-label={s.label}
-                      className={`p-3 rounded-xl transition-all duration-300 hover:-translate-y-0.5 ${
-                        darkMode ? 'bg-navy/60 text-slate hover:text-blue-sky hover:bg-blue-light/10' : 'bg-gray-50 text-gray-500 hover:text-blue hover:bg-blue-50'
-                      }`}>
-                      <Icon className="w-5 h-5" />
-                    </a>
-                  );
-                })}
-              </div>
-            </div>
           </div>
         </div>
       </div>
