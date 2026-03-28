@@ -1,0 +1,207 @@
+import {
+  Code2,
+  Smartphone,
+  Monitor,
+  Palette,
+  Cloud,
+  Server,
+  Brain,
+  Wrench,
+  ArrowRight,
+} from 'lucide-react';
+import { useInView } from '../hooks/useInView';
+
+interface ServicesProps {
+  darkMode: boolean;
+}
+
+const services = [
+  {
+    icon: Code2,
+    title: 'Website Development',
+    tech: 'React / Next.js',
+    features: [
+      'Custom responsive web applications',
+      'E-commerce & SaaS platforms',
+      'SEO-optimized, blazing fast',
+    ],
+    color: 'from-blue-500 to-cyan-400',
+    shadowColor: 'shadow-blue-500/20',
+  },
+  {
+    icon: Smartphone,
+    title: 'Mobile App Development',
+    tech: 'Flutter / React Native',
+    features: [
+      'Cross-platform iOS & Android',
+      'Native performance & UX',
+      'Push notifications & offline mode',
+    ],
+    color: 'from-violet-500 to-purple-400',
+    shadowColor: 'shadow-violet-500/20',
+  },
+  {
+    icon: Monitor,
+    title: 'Windows Desktop App',
+    tech: '.NET MAUI / WPF',
+    features: [
+      'Modern Windows 11 style apps',
+      'Enterprise-grade solutions',
+      'Auto-updater & installer',
+    ],
+    color: 'from-blue-600 to-blue-400',
+    shadowColor: 'shadow-blue-600/20',
+  },
+  {
+    icon: Palette,
+    title: 'UI/UX Design',
+    tech: 'Figma / Adobe XD',
+    features: [
+      'User research & wireframing',
+      'Interactive prototypes',
+      'Design systems & style guides',
+    ],
+    color: 'from-pink-500 to-rose-400',
+    shadowColor: 'shadow-pink-500/20',
+  },
+  {
+    icon: Cloud,
+    title: 'Cloud Integration',
+    tech: 'AWS / Azure / GCP',
+    features: [
+      'Scalable infrastructure setup',
+      'CI/CD pipelines',
+      'Serverless & microservices',
+    ],
+    color: 'from-sky-500 to-teal-400',
+    shadowColor: 'shadow-sky-500/20',
+  },
+  {
+    icon: Server,
+    title: 'API / Backend Services',
+    tech: 'Node.js / Python / Go',
+    features: [
+      'RESTful & GraphQL APIs',
+      'Database design & optimization',
+      'Auth, payments & integrations',
+    ],
+    color: 'from-emerald-500 to-green-400',
+    shadowColor: 'shadow-emerald-500/20',
+  },
+  {
+    icon: Brain,
+    title: 'AI / ML Features',
+    tech: 'TensorFlow / PyTorch',
+    features: [
+      'Custom ML model development',
+      'NLP & computer vision',
+      'AI-powered automation',
+    ],
+    color: 'from-amber-500 to-orange-400',
+    shadowColor: 'shadow-amber-500/20',
+  },
+  {
+    icon: Wrench,
+    title: 'App Maintenance & Support',
+    tech: '24/7 Monitoring',
+    features: [
+      'Bug fixes & performance tuning',
+      'Security patches & updates',
+      'SLA-based support plans',
+    ],
+    color: 'from-slate-500 to-gray-400',
+    shadowColor: 'shadow-slate-500/20',
+  },
+];
+
+export default function Services({ darkMode }: ServicesProps) {
+  const { ref, isInView } = useInView(0.05);
+
+  return (
+    <section
+      id="services"
+      ref={ref}
+      className={`relative py-24 lg:py-32 overflow-hidden ${
+        darkMode ? 'bg-navy-light' : 'bg-white'
+      }`}
+    >
+      {/* Background accents */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-light/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-sky/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className={`text-center max-w-3xl mx-auto mb-16 lg:mb-20 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-4 ${
+            darkMode ? 'bg-blue-light/10 text-blue-sky border border-blue-light/20' : 'bg-blue-50 text-blue border border-blue-100'
+          }`}>
+            Our Services
+          </span>
+          <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 ${darkMode ? 'text-white' : 'text-navy'}`}>
+            Everything You Need to{' '}
+            <span className="gradient-text">Build & Scale</span>
+          </h2>
+          <p className={`text-lg ${darkMode ? 'text-slate' : 'text-gray-600'}`}>
+            From concept to deployment and beyond — we deliver end-to-end software solutions tailored to your business needs.
+          </p>
+        </div>
+
+        {/* Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 lg:gap-6">
+          {services.map((service, index) => {
+            const Icon = service.icon;
+            return (
+              <div
+                key={service.title}
+                className={`group relative rounded-2xl p-6 transition-all duration-500 hover:-translate-y-2 cursor-pointer ${
+                  darkMode
+                    ? 'bg-navy/60 border border-white/5 hover:border-blue-light/20 hover:bg-navy/80'
+                    : 'bg-white border border-gray-100 hover:border-blue-100 shadow-sm hover:shadow-xl hover:shadow-blue-500/5'
+                } ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+                style={{ transitionDelay: `${index * 80}ms` }}
+                id={`service-card-${index}`}
+              >
+                {/* Icon */}
+                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-5 shadow-lg ${service.shadowColor} group-hover:scale-110 transition-transform duration-300`}>
+                  <Icon className="w-6 h-6 text-white" />
+                </div>
+
+                {/* Content */}
+                <h3 className={`text-lg font-bold mb-1 ${darkMode ? 'text-white' : 'text-navy'}`}>
+                  {service.title}
+                </h3>
+                <p className={`text-xs font-mono mb-4 ${darkMode ? 'text-blue-sky' : 'text-blue-light'}`}>
+                  {service.tech}
+                </p>
+
+                <ul className="space-y-2 mb-6">
+                  {service.features.map((feature) => (
+                    <li
+                      key={feature}
+                      className={`flex items-start gap-2 text-sm ${
+                        darkMode ? 'text-slate' : 'text-gray-600'
+                      }`}
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-light mt-1.5 flex-shrink-0" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+
+                <button className={`inline-flex items-center gap-1.5 text-sm font-semibold transition-all group-hover:gap-2.5 ${
+                  darkMode ? 'text-blue-sky hover:text-white' : 'text-blue hover:text-blue-light'
+                }`}>
+                  Learn More
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+
+                {/* Hover gradient border */}
+                <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500`} />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
