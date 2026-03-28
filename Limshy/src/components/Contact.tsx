@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Send, Mail, Link2, Globe, MessageCircle } from 'lucide-react';
 import { useInView } from '../hooks/useInView';
+import { db } from '../firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 interface ContactProps { darkMode: boolean; }
 
@@ -15,11 +17,32 @@ export default function Contact({ darkMode }: ContactProps) {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', service: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
-    setFormData({ name: '', email: '', phone: '', service: '', message: '' });
+    setIsSubmitting(true);
+    
+    try {
+      // Save to Firestore
+      await addDoc(collection(db, 'messages'), {
+        ...formData,
+        createdAt: serverTimestamp(),
+      });
+
+      window.location.href = `mailto:limshytech@gmail.com?subject=${encodeURIComponent(`New Project Inquiry from ${formData.name}`)}&body=${encodeURIComponent(
+        `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nService: ${formData.service}\n\nMessage:\n${formData.message}`
+      )}`;
+
+      setSubmitted(true);
+      setFormData({ name: '', email: '', phone: '', service: '', message: '' });
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('Something went default. Please try again or email us directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const inputClasses = `w-full px-4 py-3.5 rounded-xl text-sm transition-all duration-300 outline-none ${
@@ -90,9 +113,14 @@ export default function Contact({ darkMode }: ContactProps) {
                   <textarea rows={5} required placeholder="Tell us about your project..." value={formData.message}
                     onChange={(e) => setFormData({...formData, message: e.target.value})} className={`${inputClasses} resize-none`} id="contact-message" />
                 </div>
-                <button type="submit" id="contact-submit"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white bg-gradient-to-r from-blue to-blue-light hover:from-blue-light hover:to-blue-sky shadow-lg shadow-blue/25 hover:shadow-blue-light/30 transition-all duration-300 hover:-translate-y-0.5">
-                  <Send className="w-4 h-4" /> Send Message
+                <button type="submit" id="contact-submit" disabled={isSubmitting}
+                  className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white bg-gradient-to-r from-blue to-blue-light hover:from-blue-light hover:to-blue-sky shadow-lg shadow-blue/25 hover:shadow-blue-light/30 transition-all duration-300 hover:-translate-y-0.5 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}>
+                  {isSubmitting ? (
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  ) : (
+                    <Send className="w-4 h-4" />
+                  )}
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>
               </form>
             )}
@@ -119,7 +147,7 @@ export default function Contact({ darkMode }: ContactProps) {
                 {[{ icon: Link2, label: 'LinkedIn' }, { icon: Globe, label: 'GitHub' }, { icon: MessageCircle, label: 'Twitter' }].map((s) => {
                   const Icon = s.icon;
                   return (
-                    <a key={s.label} href="#" aria-label={s.label}
+                    <a key={s.label} href="javascript:void(0)" aria-label={s.label}
                       className={`p-3 rounded-xl transition-all duration-300 hover:-translate-y-0.5 ${
                         darkMode ? 'bg-navy/60 text-slate hover:text-blue-sky hover:bg-blue-light/10' : 'bg-gray-50 text-gray-500 hover:text-blue hover:bg-blue-50'
                       }`}>

@@ -37,7 +37,7 @@ export default function App() {
         <div className="section-divider" />
         <Contact darkMode={darkMode} />
       </main>
-      <Footer darkMode={darkMode} />
+      <Footer />
 
       {/* Floating Back to Top */}
       <button
