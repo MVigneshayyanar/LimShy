@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Services from './components/Services';
 import About from './components/About';
+import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import { ArrowUp } from 'lucide-react';
@@ -34,6 +35,8 @@ export default function App() {
         <Services darkMode={darkMode} />
         <div className="section-divider" />
         <About darkMode={darkMode} />
+        <div className="section-divider" />
+        <FAQ darkMode={darkMode} />
         <div className="section-divider" />
         <Contact darkMode={darkMode} />
       </main>

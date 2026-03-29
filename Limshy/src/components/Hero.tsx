@@ -51,7 +51,7 @@ export default function Hero({ darkMode }: HeroProps) {
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 animate-slide-up">
             <span className={darkMode ? 'text-white' : 'text-navy'}>Limshy </span>
             <br />
-            <span className="gradient-text">Innovative Tech</span>
+            <span className="gradient-text">Innovative Tech </span>
             <br />
             <span className={darkMode ? 'text-white' : 'text-navy'}>Solutions</span>
           </h1>

@@ -21,6 +21,7 @@ const navLinks = [
   { label: 'Home', section: 'home' },
   { label: 'Services', section: 'services' },
   { label: 'About', section: 'about' },
+  { label: 'FAQ', section: 'faq' },
   { label: 'Contact', section: 'contact' },
 ];
 
@@ -72,7 +73,7 @@ export default function Navbar({ darkMode, toggleDarkMode }: NavbarProps) {
               className="flex items-center group"
               id="logo"
             >
-              <img src={logo} alt="Limshy Logo" className="h-10 sm:h-12 w-auto object-contain hover:scale-105 transition-transform duration-300" />
+              <img src={logo} alt="Limshy - Custom Software Development & AI Solutions" className="h-10 sm:h-12 w-auto object-contain hover:scale-105 transition-transform duration-300" />
             </button>
 
             {/* Desktop Nav */}

@@ -15,10 +15,10 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <button onClick={() => scrollToSection('home')} className="inline-flex items-center mb-6 group text-left">
-              <img src={logo} alt="Limshy Logo" className="h-12 w-auto object-contain hover:scale-105 transition-transform duration-300" />
+              <img src={logo} alt="Limshy - Innovative Software Solutions" className="h-12 w-auto object-contain hover:scale-105 transition-transform duration-300" />
             </button>
             <p className="text-slate max-w-sm mb-6 text-sm leading-relaxed">
-              Innovative tech solutions — from concept to deployment. Building the future of digital products.
+              Innovative tech solutions from concept to deployment. Building the future of digital products.
             </p>
           </div>
 
@@ -30,6 +30,7 @@ export default function Footer() {
                 { label: 'Home', section: 'home' },
                 { label: 'Services', section: 'services' },
                 { label: 'About', section: 'about' },
+                { label: 'FAQ', section: 'faq' },
                 { label: 'Contact', section: 'contact' },
               ].map((link) => (
                 <li key={link.label}>
